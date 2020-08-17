@@ -10,15 +10,16 @@ import './dropdown.scss';
  */
 
 export const Dropdown = ({
-  searchable, title, resetThenSet, ...props
+  searchable, ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCollectionTitle, setSelectedCollectionTitle] = useState('');
+  const [selected, setSelected] = useState([]);
 
   const list = [
-    { id: 0, title: 'featured' },
-    { id: 1, title: 'city' },
-    { id: 2, title: 'cool' },
+    { id: 0, title: 'featured', selected: false },
+    { id: 1, title: 'city', selected: false },
+    { id: 2, title: 'cool', selected: false },
   ];
 
   useEffect(() => {
@@ -39,11 +40,18 @@ export const Dropdown = ({
   const selectCollection = (title, id) => {
     setIsOpen(false);
     setSelectedCollectionTitle(title);
+    selected.pop();
+    setSelected((selected) => selected.concat(id));
+    /*
+    if (selected.length > 1) {
+      let prevSelected = selected[selected.length - 2];
+      list[list.findIndex(el => el.id === prevSelected)].selected = false;
+    }
+    */
     props.handleCollectionChange(id);
   };
 
   const toggle = () => {
-    console.log('pressed');
     setIsOpen(!isOpen);
   };
   const handleKeyDown = (e) => {
@@ -52,7 +60,7 @@ export const Dropdown = ({
       toggle();
     }
   };
-/*
+  /*
   const listItems = () => {
     let tempList = list;
 
@@ -88,6 +96,13 @@ export const Dropdown = ({
     return <div className="dd-list-item no-result">{searchable[1]}</div>;
   };
 */
+  const isSelected = (item) => {
+    console.log(selected);
+    if (selected && selected.includes(item.id)) {
+      return true;
+    }
+    return false;
+  };
   return (
     <div className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
       <div className="dd-header">
@@ -103,7 +118,7 @@ export const Dropdown = ({
         {list.map((item) => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events
           <li
-            className="dd-list-item"
+            className={`dd-list-item${isSelected(item) ? ' dd-list-item-selected' : ''}`}
             key={item.id}
             onClick={() => selectCollection(item.title, item.id)}
           >

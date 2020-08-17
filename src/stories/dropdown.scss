@@ -87,15 +87,15 @@ p {
 	cursor: default;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	color: #3F3356;
+	color: #D0C9D6;
 	border: 0;
 	margin: 0;
 	&:hover {
-		color: #050417;
-		background-color: rgba(213, 215, 229, 0.3);
+		color: #3F3356;
+		//background-color: rgba(213, 215, 229, 0.3);
 	}
 }
-.dd-list-item.selected {
-	color: #050417;
-	background-color: rgba(174, 174, 179, 0.3);
+.dd-list-item-selected {
+	color: #3F3356;
+	background-color: rgba(213, 215, 229, 0.3);
 }
