@@ -10,12 +10,13 @@ import './dropdown.scss';
  */
 
 export const Dropdown = ({
-  searchable, ...props
+  searchable, multiSelect, ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCollectionTitle, setSelectedCollectionTitle] = useState('');
   const [keyword, setKeyword] = useState('');
   const [selected, setSelected] = useState([]);
+
   const clickRef = useRef(null);
   const searchField = useRef(null);
 
@@ -26,7 +27,7 @@ export const Dropdown = ({
   ];
   useEffect(() => {
     /**
-     * Alert if clicked on outside of element
+     * Close if clicked on outside of element
      */
     function handleClickOutside(event) {
       if (clickRef.current && !clickRef.current.contains(event.target)) {
@@ -56,37 +57,37 @@ export const Dropdown = ({
     window.removeEventListener('click', setIsOpen(false));
   }, []);
 
-  const selectCollection = (title, id) => {
+  const selectCollection = (item) => {
     setIsOpen(false);
-    setSelectedCollectionTitle(title);
-    selected.pop();
-    setSelected((selected) => selected.concat(id));
+    if (!multiSelect) {
+      setSelected(() => selected.pop());
+    }
+    setSelectedCollectionTitle(item.title);
+    setSelected(() => selected.concat(item));
     /*
     if (selected.length > 1) {
       let prevSelected = selected[selected.length - 2];
       list[list.findIndex(el => el.id === prevSelected)].selected = false;
     }
     */
-    props.handleCollectionChange(id);
   };
 
   const toggle = () => {
     setIsOpen(!isOpen);
     setKeyword('');
+    // ??????????
     if (isOpen && searchField.current) {
       searchField.current.focus();
       setKeyword('');
     }
   };
   const handleKeyDown = (e) => {
-    // check keys if you want
     if (e.keyCode === 13) {
       toggle();
     }
   };
   const filterList = (e) => {
     setKeyword(e.target.value.toLowerCase());
-    // console.log(keyword);
   };
 
   const listItems = () => {
@@ -109,7 +110,7 @@ export const Dropdown = ({
           <li
             className={`dd-list-item${isSelected(item) ? ' dd-list-item-selected' : ''}`}
             key={item.id}
-            onClick={() => selectCollection(item.title, item.id)}
+            onClick={() => selectCollection(item)}
           >
             {item.title}
           </li>
@@ -121,19 +122,32 @@ export const Dropdown = ({
   };
 
   const isSelected = (item) => {
-    if (selected && selected.includes(item.id)) {
+    if (selected && selected.includes(item)) {
       return true;
     }
     return false;
   };
   const renderHeader = () => {
+    if (multiSelect) {
+      return (
+        <div className="dd-header">
+          { selected.map((item) => (
+            <div className="dd-header-multi-title">
+              {item.title}
+              {' '}
+            </div>
+          ))}
+        </div>
+      );
+    }
     if (searchable) {
       return (
         <input
           ref={searchField}
           className="dd-list-search-bar"
-          //value={keyword}
-          placeholder={selectedCollectionTitle || 'Collections'}
+          // value={keyword}
+          // TODO:: CLEAR INPUT AFTER SELECTION
+          placeholder={selectedCollectionTitle || 'Enter the keyword...'}
           onChange={(e) => filterList(e)}
         />
       );
