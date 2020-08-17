@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './dropdown.scss';
 // import Arrow from './assets/dropdown-arrow.svg';
@@ -15,12 +15,29 @@ export const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCollectionTitle, setSelectedCollectionTitle] = useState('');
   const [selected, setSelected] = useState([]);
+  const clickRef = useRef(null);
 
   const list = [
     { id: 0, title: 'featured', selected: false },
     { id: 1, title: 'city', selected: false },
     { id: 2, title: 'cool', selected: false },
   ];
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (clickRef.current && !clickRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [clickRef]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -104,7 +121,7 @@ export const Dropdown = ({
     return false;
   };
   return (
-    <div className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+    <div ref={clickRef} className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
       <div className="dd-header">
         {selectedCollectionTitle ? (
           <div className="dd-header-chosen">{selectedCollectionTitle}</div>
