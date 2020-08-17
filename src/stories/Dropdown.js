@@ -122,7 +122,8 @@ export const Dropdown = ({
   };
 
   const isSelected = (item) => {
-    if (selected && selected.includes(item)) {
+    if (selected && selected.some((el) => el.id === item.id)) {
+      console.log('ye');
       return true;
     }
     return false;
