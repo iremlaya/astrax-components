@@ -59,6 +59,20 @@ p {
 	flex: 1;
 	flex-direction: row;
 	justify-content: space-between;
+	
+}
+.dd-list-search-bar {
+	border: none;
+	//how to take them as global?
+	font-style: normal;
+	font-size: 15px;
+	line-height: 20px;
+	font-family: "SF Pro Text";
+	font-weight: 600;
+	color: #3F3356;
+	&::placeholder {
+		color: #3F3356;
+	}
 }
 .dd-header-title {
 	color: #3F3356;
@@ -80,7 +94,9 @@ p {
 	background: #FFFFFF;
 	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
 	border-radius: 6px;
+
 }
+
 .dd-list-item {
 	padding: 16px 16px;
 	line-height: 20px;
@@ -98,4 +114,12 @@ p {
 .dd-list-item-selected {
 	color: #3F3356;
 	background-color: rgba(213, 215, 229, 0.3);
+}
+.dd-list.searchable {
+	overflow-y: hidden;
+	padding: 0;
+	.dd-scroll-list {
+		max-height: calc(215px - 40px);
+		padding: 10px 0;
+	}
 }

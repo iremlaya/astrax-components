@@ -16,6 +16,11 @@ export const Unsearchable = Template.bind({});
 Unsearchable.args = {
   searchable: false,
 };
+
+export const Searchable = Template.bind({});
+Searchable.args = {
+  searchable: true,
+};
 /*
 export const Secondary = Template.bind({});
 Secondary.args = {

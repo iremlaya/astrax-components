@@ -14,8 +14,10 @@ export const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCollectionTitle, setSelectedCollectionTitle] = useState('');
+  const [keyword, setKeyword] = useState('');
   const [selected, setSelected] = useState([]);
   const clickRef = useRef(null);
+  const searchField = useRef(null);
 
   const list = [
     { id: 0, title: 'featured', selected: false },
@@ -32,10 +34,10 @@ export const Dropdown = ({
       }
     }
     // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [clickRef]);
 
@@ -70,6 +72,11 @@ export const Dropdown = ({
 
   const toggle = () => {
     setIsOpen(!isOpen);
+    setKeyword('');
+    if (isOpen && searchField.current) {
+      searchField.current.focus();
+      setKeyword('');
+    }
   };
   const handleKeyDown = (e) => {
     // check keys if you want
@@ -77,7 +84,11 @@ export const Dropdown = ({
       toggle();
     }
   };
-  /*
+  const filterList = (e) => {
+    setKeyword(e.target.value.toLowerCase());
+    // console.log(keyword);
+  };
+
   const listItems = () => {
     let tempList = list;
 
@@ -93,47 +104,8 @@ export const Dropdown = ({
     }
 
     if (tempList.length) {
-      console.log('annen');
       return (
         tempList.map((item) => (
-          <button
-            type="button"
-            className="dd-list-item"
-            key={item.id}
-            onClick={() => selectItem(item.title, item.id, item.key)}
-          >
-            {item.title}
-            {' '}
-            {item.selected && 'selected'}
-          </button>
-        ))
-      );
-    }
-
-    return <div className="dd-list-item no-result">{searchable[1]}</div>;
-  };
-*/
-  const isSelected = (item) => {
-    console.log(selected);
-    if (selected && selected.includes(item.id)) {
-      return true;
-    }
-    return false;
-  };
-  return (
-    <div ref={clickRef} className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
-      <div className="dd-header">
-        {selectedCollectionTitle ? (
-          <div className="dd-header-chosen">{selectedCollectionTitle}</div>
-        ) : (
-          <div className="dd-header-title">Collections</div>
-        )}
-      </div>
-      {isOpen && (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <ul className="dd-list" onClick={(e) => e.stopPropagation()}>
-        {list.map((item) => (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
           <li
             className={`dd-list-item${isSelected(item) ? ' dd-list-item-selected' : ''}`}
             key={item.id}
@@ -141,7 +113,50 @@ export const Dropdown = ({
           >
             {item.title}
           </li>
-        ))}
+        ))
+      );
+    }
+
+    return <div className="dd-list-item no-result">{searchable[1]}</div>;
+  };
+
+  const isSelected = (item) => {
+    if (selected && selected.includes(item.id)) {
+      return true;
+    }
+    return false;
+  };
+  const renderHeader = () => {
+    if (searchable) {
+      return (
+        <input
+          ref={searchField}
+          className="dd-list-search-bar"
+          //value={keyword}
+          placeholder={selectedCollectionTitle || 'Collections'}
+          onChange={(e) => filterList(e)}
+        />
+      );
+    }
+    return (
+      <div className="dd-header">
+        {selectedCollectionTitle ? (
+          <div className="dd-header-chosen">{selectedCollectionTitle}</div>
+        ) : (
+          <div className="dd-header-title">Collections</div>
+        )}
+      </div>
+    );
+  };
+  return (
+    <div ref={clickRef} className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+
+      {renderHeader()}
+      {isOpen && (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <ul className={`dd-list ${searchable ? 'searchable' : ''}`} onClick={(e) => e.stopPropagation()}>
+        {listItems()}
+
       </ul>
       )}
     </div>
