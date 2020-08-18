@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Dropdown } from './Dropdown';
+import Dropdown from '../components/Dropdown';
 
 export default {
   title: 'Example/Dropdown',
@@ -10,6 +10,7 @@ export default {
   },
 };
 
+// eslint-disable-next-line react/jsx-props-no-spreading
 const Template = (args) => <Dropdown {...args} />;
 
 export const Unsearchable = Template.bind({});

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from './Button';
+import Button from '../components/Button';
 
 export default {
   title: 'Example/Button',
@@ -10,6 +10,7 @@ export default {
   },
 };
 
+// eslint-disable-next-line react/jsx-props-no-spreading
 const Template = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
