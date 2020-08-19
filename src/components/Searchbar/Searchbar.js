@@ -125,7 +125,7 @@ export const Searchbar = ({ ...props }) => {
   const cancel = () => {
     setKeyword('');
     setSearch('');
-    toggle();
+    setIsOpen(false);
   };
   const renderHeader = () => (
     <div>
