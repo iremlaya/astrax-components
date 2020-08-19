@@ -32,7 +32,7 @@ li {
 		border-bottom: none;
 	}
 	&:first-child {
-		border-top: 1px solid rgba(213, 215, 229, 0.3);
+		border-top: none;
 	}
 }
 p {
@@ -46,12 +46,13 @@ p {
 		background-position: center;
 		background-size: 14px;
 		position: absolute;
-		width: 14px;
-		height: 9px;
+		width: 12px;
+		height: 12px;
 		right: 18px;
-		top: 21px;
+        top: 21px;
+        cursor: pointer;
 }
-.dd-wrapper {
+.searchbar-wrapper {
 	font-family: "SF Pro Text";
 	font-style: normal;
 	display: block;
@@ -64,30 +65,20 @@ p {
 	position: relative;
 	background: #FFFFFF;
 	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
-	border-radius: 6px;
-	&::before {
-		content: '';
-		background-image: url("../../assets/dropdown-arrow.svg");
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: 14px;
-		position: absolute;
-		width: 14px;
-		height: 9px;
-		right: 18px;
-		top: 21px;
-	}
+    border-radius: 6px;
+    
 }
-.dd-header {
+.searchbar-wrapper.dd-open {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+}
+.searchbar-header {
 	flex: 1;
 	flex-direction: row;
     justify-content: space-between;
-
-    
-    
-	
 }
-.dd-list-search-bar {
+.searchbar-list-search-bar {
     padding-left: 30px;
 	border: none;
 	//how to take them as global?
@@ -108,24 +99,26 @@ p {
 .dd-header-chosen {
 	color: #3F3356;
 }
-.dd-list {
+.searchbar-list {
 	left: 0;
 	top: 48px;
 	z-index: 10;
 	position: absolute;
 	border-top: none;
 	padding: 0;
-	width: 330px;
+	width: 340px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	background: #FFFFFF;
 	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
-	border-radius: 6px;
+    border-radius: 6px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 
 }
 
-.dd-list-item {
+.searchbar-list-item {
 	padding: 16px 16px;
 	line-height: 20px;
 	cursor: default;
@@ -139,14 +132,14 @@ p {
 		//background-color: rgba(213, 215, 229, 0.3);
 	}
 }
-.dd-list-item-selected {
+.searchbar-list-item-selected {
 	color: #3F3356;
 	background-color: rgba(213, 215, 229, 0.3);
 }
-.dd-list.searchable {
+.searchbar-list.searchable {
 	overflow-y: hidden;
 	padding: 0;
-	.dd-scroll-list {
+	.searchbar-scroll-list {
 		max-height: calc(215px - 40px);
 		padding: 10px 0;
 	}

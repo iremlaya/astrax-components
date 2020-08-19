@@ -80,6 +80,7 @@ export const Searchbar = ({ ...props }) => {
     }
   };
   const filterList = (e) => {
+    setIsOpen(true);
     setKeyword(e.target.value.toLowerCase());
     setSearch(e.target.value);
   };
@@ -102,7 +103,7 @@ export const Searchbar = ({ ...props }) => {
       return (
         tempList.map((item) => (
           <li
-            className={`dd-list-item${isSelected(item) ? ' dd-list-item-selected' : ''}`}
+            className={`searchbar-list-item${isSelected(item) ? ' searchbar-list-item-selected' : ''}`}
             key={item.id}
             onClick={() => selectCollection(item)}
           >
@@ -121,13 +122,18 @@ export const Searchbar = ({ ...props }) => {
     }
     return false;
   };
+  const cancel = () => {
+    setKeyword('');
+    setSearch('');
+    toggle();
+  };
   const renderHeader = () => (
     <div>
-        {search && <div className="cancel" />}
+      {search && <div className="cancel" onClick={cancel} />}
       {search ? <div className="search-bold" /> : <div className="search-fade" />}
       <input
         ref={searchField}
-        className="dd-list-search-bar"
+        className="searchbar-list-search-bar"
         value={search}
         placeholder="Enter the keyword..."
         onChange={(e) => filterList(e)}
@@ -136,11 +142,11 @@ export const Searchbar = ({ ...props }) => {
 
   );
   return (
-    <div ref={clickRef} className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+    <div ref={clickRef} className={`searchbar-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
       {renderHeader()}
       {isOpen && (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <ul className="dd-list searchable" onClick={(e) => e.stopPropagation()}>
+      <ul className="searchbar-list searchable" onClick={(e) => e.stopPropagation()}>
         {listItems()}
 
       </ul>
