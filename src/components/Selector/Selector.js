@@ -1,12 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './radio.scss';
+import './selector.scss';
 
 /**
  * Primary UI component for user interaction
  */
-export const Radio = ({
+export const Selector = ({
   primary, backgroundColor, size, label, checked, ...props
 }) => {
   const [check, setCheck] = useState((!!checked));
@@ -20,17 +20,17 @@ export const Radio = ({
     <button
       type="button"
       // className={['checkbox-unchecked', `storybook-button--${size}`, mode].join(' ')}
-      className={`radio ${(check) ? ' checked' : ' unchecked'}`}
+      className={`selector ${(check) ? ' checked' : ' unchecked'}`}
       style={backgroundColor && { backgroundColor }}
       onClick={handleClick}
       {...props}
     >
-      {(check) && <div className="check-radio" />}
+      {(check) && <div className="icon check-selector" />}
     </button>
   );
 };
 
-Radio.propTypes = {
+Selector.propTypes = {
   /**
    * Is this the principal call to action on the page?
    */
@@ -38,6 +38,6 @@ Radio.propTypes = {
 
 };
 
-Radio.defaultProps = {
+Selector.defaultProps = {
   checked: false,
 };

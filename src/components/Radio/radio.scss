@@ -1,4 +1,4 @@
-.check {
+.check-radio {
     background: #6979F8;
 	width: 14px;
     height: 14px;
@@ -6,7 +6,7 @@
     margin-left: 3px;
 }
 
-.checkbox {
+.radio {
 
     cursor: pointer;
     /* Color/Neutral/6 - White */
@@ -22,14 +22,14 @@
     margin: 0;
     padding: 0;
 }
-.checkbox.unchecked {
+.radio.unchecked {
     background: #FFFFFF;
 /* Color/Accent/1 - Blue 75% */
 
     border: 2px solid #A5AFFB;
 }
 
-.checkbox.checked{
+.radio.checked{
     /* Color/Accent/1 - Blue */
     border: 2px solid #6979F8;
     justify-content: center;
