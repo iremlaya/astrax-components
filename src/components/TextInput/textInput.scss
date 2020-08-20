@@ -1,0 +1,44 @@
+
+.ti-wrapper {
+
+    justify-content: center;
+    align-items: center;
+    
+}
+.ti-input {
+    /* Color/Neutral/6 - White */
+
+    background: #FFFFFF;
+    /* Color/Neutral/4 - Grey 25% */
+
+    border: 1px solid #ECEBED;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 240px;
+    height:38px;
+
+    color: #1A051D;
+    font-style: normal;
+	font-size: 13px;
+	line-height: 18px;
+    font-family: "SF Pro Text";
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 9px 20px 9px 20px;
+    resize: none;
+    &::placeholder {
+    /* Body 2 */
+
+        /* identical to box height, or 138% */
+
+
+        /* Color/Neutral/3 - Grey 75% */
+
+        color: #D0C9D6;
+    }
+}
+.ti-input.long {
+    height: 140px;
+    padding: 14px 12px 0px 12px;
+}
