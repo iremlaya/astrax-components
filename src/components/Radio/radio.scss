@@ -1,0 +1,38 @@
+.check {
+    background: #6979F8;
+	width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    margin-left: 3px;
+}
+
+.checkbox {
+
+    cursor: pointer;
+    /* Color/Neutral/6 - White */
+
+    background: #FFFFFF;
+    /* Color/Neutral/4 - Grey 25% */
+
+    
+    border-radius: 12px;
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.checkbox.unchecked {
+    background: #FFFFFF;
+/* Color/Accent/1 - Blue 75% */
+
+    border: 2px solid #A5AFFB;
+}
+
+.checkbox.checked{
+    /* Color/Accent/1 - Blue */
+    border: 2px solid #6979F8;
+    justify-content: center;
+    align-items: center;
+
+}
