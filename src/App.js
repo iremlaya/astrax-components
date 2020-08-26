@@ -1,31 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import Form from "./components/Form/Form.js";
+import TextInput from "./components/TextInput";
+import Button from "./components/Button";
+import Dropdown from "./components/Dropdown";
 
 function App() {
+  const submit = () => {
+    console.log("submit")
+  }
+
+  const list = [
+    { id: 0, title: 'featured', selected: false },
+    { id: 1, title: 'city', selected: false },
+    { id: 2, title: 'cool', selected: false },
+  ];
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit
-          {' '}
-          <code>src/App.js</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-
+      <Form shouldValidateForm={true}>
+        <TextInput type="textarea" id="email" label="Email address"/>
+        <TextInput id="phone" label="phone" phoneNumber={true} validate={"phone"}/>
+        <TextInput id="userName" validate={"required|numeric|email"} label="User name"/>
+        <Dropdown id="dropdown" label="Dropdown" list={list}/>
+        <Button onClick={submit} displayName="SUBMIT" size="medium"/>
+      </Form>
     </div>
   );
 }
 
-export default App;
+export default App
