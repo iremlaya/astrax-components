@@ -1,26 +1,31 @@
 @import url(//db.onlinewebfonts.com/c/1c45e28f8e86cc89876f003b953cc3e9?family=SF+Pro+Text);
 .storybook-button {
   font-family: "SF Pro Text", 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-
+  font-weight: 600;
+  width: 180px;
+  height: 40px;
   font-size: 17px;
   border: 0;
+  letter-spacing: 3px;
  /*border-radius: 3em;*/
   border-radius: 6px;
   line-height: 22px;
   cursor: pointer;
   display: inline-block;
   line-height: 1;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
-.storybook-button--primary {
+.storybook-button--default {
   color: white;
-  background: #6979F8;
+  background-color: #6979F8;
   
 }
-.storybook-button--secondary {
+.storybook-button--ghost {
   border: 1px solid #6979F8;
   box-sizing: border-box;
-  color: #6979F8;
+  background-color: white;
+  color:  #6979F8;
   /*box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;*/
 }
 .storybook-button--small {

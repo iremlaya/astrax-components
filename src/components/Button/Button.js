@@ -1,20 +1,63 @@
-import React from 'react';
+/* eslint-disable import/prefer-default-export */
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
+import { FormCtx } from '../Form/Form';
 import './button.scss';
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+export const Button = ({ 
+  ghost, 
+  backgroundColor,
+  size,
+  label, 
+  displayName,
+  onClick,
+  classes,
+  loadingClass,
+  loadingText,
+  ...props }) => {
+  
+  const { validateForm, formData = {}, setFormData,submit } = useContext(
+    FormCtx
+  );
+  const { defaultClasses, isFetching, errors } = formData
+
+  const mode = ghost ? 'storybook-button--ghost' : 'storybook-button--default';
+  
+  const finishRequest = ({ apiErrors = '' } = {}) => {
+    const newState = {
+      apiErrors,
+      isFetching : false
+    }
+
+    setFormData(newState)
+  }
+
   return (
     <button
-      type="button"
+      type="submit"
       className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
       style={backgroundColor && { backgroundColor }}
       {...props}
+      onClick={(event) => {
+        event.preventDefault()
+        if (!isFetching) {
+          validateForm()
+
+          if (errors && Object.values(errors).join('').length === 0) {
+            setFormData({ isFetching : true })
+            onClick({
+              formData,
+              finishRequest
+            })
+          }
+        }
+      }}
+      
     >
-      {label}
+      {isFetching ? loadingText : displayName}
     </button>
   );
 };
@@ -36,15 +79,33 @@ Button.propTypes = {
    * Button contents
    */
   label: PropTypes.string.isRequired,
-  /**
-   * Optional click handler
-   */
-  onClick: PropTypes.func,
+  displayName             : PropTypes.string.isRequired,
+  loadingText             : PropTypes.string,
+  loadingClass            : PropTypes.string,
+  shouldUseDefaultClasses : PropTypes.bool,
+  events                  : PropTypes.shape({
+    onClick : PropTypes.func
+  }),
+  classes : PropTypes.shape({
+    buttonClass : PropTypes.string,
+    contClass   : PropTypes.string
+  })
 };
 
 Button.defaultProps = {
   backgroundColor: null,
-  primary: false,
+  ghost: false,
   size: 'medium',
-  onClick: undefined,
+  validateForm : PropTypes.func.isRequired,
+  setFormData  : PropTypes.func.isRequired,
+  formData     : PropTypes.shape({
+    defaultClasses : PropTypes.shape({
+      labelClass : '',
+      contClass  : '',
+      errorClass : '',
+      fieldClass : ''
+    }),
+    isFetching : PropTypes.bool, 
+    errors : PropTypes.object // eslint-disable-line
+  }),
 };
