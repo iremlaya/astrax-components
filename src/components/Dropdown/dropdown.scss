@@ -4,7 +4,6 @@
 	background-repeat: no-repeat;
 	width: 100px;
 	height: 100px;
-	cursor: pointer;
 }
 ul {
 	margin: 0;
@@ -57,6 +56,7 @@ li {
 		height: 9px;
 		right: 18px;
 		top: 21px;
+		cursor:pointer;	
 	}
 }
 .dd-header {
@@ -109,7 +109,7 @@ border-radius: 4px;
 }
 .item-text{
 	margin:0;
-	margin-left: 16px;
+	margin-left: 22px;
 }
 .dd-list-item {
 	padding: 16px 0px;

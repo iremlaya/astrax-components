@@ -20,28 +20,14 @@ export const Dropdown = ({
 
   const clickRef = useRef(null);
   const searchField = useRef(null);
-  /*
-  const field = fields[id] || {};
-  const fieldError = errors[id] || "";
-  const {
-    name,
-    rows,
-    value,
-    validate,
-    placeholder,
-    label = "",
-    type = "text",
-    events = {},
-    classes = {},
-    basic = true,
-    phoneNumber,
-  } = field;
-  */
 
-  const { validateForm, formData = {}, setFormData,submit } = useContext(
+  const { fields, addField, removeField, formData = {}, setFields } = useContext(
     FormCtx
   );
   const { defaultClasses, isFetching, errors } = formData
+
+
+  const field = fields[id] || {};
 
 
   useEffect(() => {
@@ -76,13 +62,22 @@ export const Dropdown = ({
     window.removeEventListener('click', setIsOpen(false));
   }, []);
 
-  const selectCollection = (item) => {
+  useEffect(() => {
+    addField({
+      field: {id,...props},
+      value: "",
+    });
+  }, []);
+
+  const selectCollection = (event, item) => {
     setIsOpen(false);
     if (!multiSelect) {
       setSelected(() => selected.pop());
     }
     setSelectedCollectionTitle(item.title);
     setSelected(() => selected.concat(item));
+    field.value = item;
+    setFields(event, field);
     /*
     if (selected.length > 1) {
       let prevSelected = selected[selected.length - 2];
@@ -129,7 +124,7 @@ export const Dropdown = ({
           <li
             className={`dd-list-item${isSelected(item) ? ' dd-list-item-selected' : ''}`}
             key={item.id}
-            onClick={() => selectCollection(item)}
+            onClick={(event) => selectCollection(event, item)}
           >
             <p className="item-text">{item.title}</p>
           </li>
