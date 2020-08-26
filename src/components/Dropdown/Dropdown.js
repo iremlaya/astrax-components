@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { FormCtx } from '../Form/Form';
 import './dropdown.scss';
 // import Arrow from './assets/dropdown-arrow.svg';
 
@@ -10,7 +11,7 @@ import './dropdown.scss';
  */
 
 export const Dropdown = ({
-  searchable, multiSelect, ...props
+  searchable, multiSelect, list, id, label, ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCollectionTitle, setSelectedCollectionTitle] = useState('');
@@ -19,12 +20,30 @@ export const Dropdown = ({
 
   const clickRef = useRef(null);
   const searchField = useRef(null);
+  /*
+  const field = fields[id] || {};
+  const fieldError = errors[id] || "";
+  const {
+    name,
+    rows,
+    value,
+    validate,
+    placeholder,
+    label = "",
+    type = "text",
+    events = {},
+    classes = {},
+    basic = true,
+    phoneNumber,
+  } = field;
+  */
 
-  const list = [
-    { id: 0, title: 'featured', selected: false },
-    { id: 1, title: 'city', selected: false },
-    { id: 2, title: 'cool', selected: false },
-  ];
+  const { validateForm, formData = {}, setFormData,submit } = useContext(
+    FormCtx
+  );
+  const { defaultClasses, isFetching, errors } = formData
+
+
   useEffect(() => {
     /**
      * Close if clicked on outside of element
@@ -112,7 +131,7 @@ export const Dropdown = ({
             key={item.id}
             onClick={() => selectCollection(item)}
           >
-            {item.title}
+            <p className="item-text">{item.title}</p>
           </li>
         ))
       );
@@ -163,16 +182,19 @@ export const Dropdown = ({
     );
   };
   return (
-    <div ref={clickRef} className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+    <div className="dd-container">
+      <p className="dd-label">{label}</p>
+      <div ref={clickRef} className={`dd-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
 
-      {renderHeader()}
-      {isOpen && (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <ul className={`dd-list ${searchable ? 'searchable' : ''}`} onClick={(e) => e.stopPropagation()}>
-        {listItems()}
+        {renderHeader()}
+        {isOpen && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+        <ul className={`dd-list ${searchable ? 'searchable' : ''}`} onClick={(e) => e.stopPropagation()}>
+          {listItems()}
 
-      </ul>
-      )}
+        </ul>
+        )}
+      </div>
     </div>
   );
 };

@@ -24,9 +24,8 @@ li {
 		border-top: 1px solid rgba(213, 215, 229, 0.3);
 	}
 }
-p {
-	margin: 0;
-	padding: 0;
+.dd-container {
+	//position: relative;
 }
 .dd-wrapper {
 	font-family: "SF Pro Text";
@@ -35,13 +34,18 @@ p {
 	border: none;
 	font-size: 15px;
 	line-height: 20px;
-	width: 200px;
-	padding: 16px 24px 16px 16px;
+	width: 232px;
+	padding-top: 16px;
+	//padding-bottom: 16px;
+	//padding: 16px 24px 16px 16px;
 	font-weight: 600;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 	background: #FFFFFF;
 	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
 	border-radius: 6px;
+	outline: none;
 	&::before {
 		content: '';
 		background-image: url("../../assets/dropdown-arrow.svg");
@@ -59,6 +63,7 @@ p {
 	flex: 1;
 	flex-direction: row;
 	justify-content: space-between;
+	padding: 0px 16px 16px 24px;
 	
 }
 .dd-list-search-bar {
@@ -88,29 +93,35 @@ border-radius: 4px;
 .dd-list {
 	left: 0;
 	top: 48px;
-	z-index: 10;
-	position: absolute;
+	z-index: 1;
+	//position: absolute;
 	border-top: none;
+	display: flex;
 	padding: 0;
-	width: 240px;
+	width: 100%;
+	height: 100%;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	background: #FFFFFF;
 	box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
 	border-radius: 6px;
-
 }
-
+.item-text{
+	margin:0;
+	margin-left: 16px;
+}
 .dd-list-item {
-	padding: 16px 16px;
+	padding: 16px 0px;
 	line-height: 20px;
+	width:100%;
 	cursor: default;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: #D0C9D6;
 	border: 0;
 	margin: 0;
+	
 	&:hover {
 		color: #3F3356;
 		//background-color: rgba(213, 215, 229, 0.3);
@@ -127,4 +138,13 @@ border-radius: 4px;
 		max-height: calc(215px - 40px);
 		padding: 10px 0;
 	}
+}
+.dd-label {
+	font-family: "SF Pro Text";
+    font-size: 16px;
+    line-height: 6px;
+    /* identical to box height, or 150% */
+    text-transform: uppercase;
+	color: #3F3356;
+	
 }
