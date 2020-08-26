@@ -1,16 +1,14 @@
 
-.ti-wrapper {
-
+.ti-container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    max-width: 240px;
     
 }
 .ti-input {
-    /* Color/Neutral/6 - White */
-
     background: #FFFFFF;
-    /* Color/Neutral/4 - Grey 25% */
-
     border: 1px solid #ECEBED;
     box-sizing: border-box;
     border-radius: 8px;
@@ -27,18 +25,46 @@
     align-items: flex-start;
     padding: 9px 20px 9px 20px;
     resize: none;
+
+    outline: none; //FIX THIS!!!!!!!!
     &::placeholder {
-    /* Body 2 */
-
-        /* identical to box height, or 138% */
-
-
-        /* Color/Neutral/3 - Grey 75% */
-
         color: #D0C9D6;
+    }
+}
+.ti-input.default {
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
+    border-radius: 6px;
+    height: 48px;
+    font-size: 15px;
+    line-height: 20px;
+    border:none;
+    &:focus {
+        border: 1px solid #ECEBED;
+        box-sizing: border-box;
     }
 }
 .ti-input.long {
     height: 140px;
     padding: 14px 12px 0px 12px;
+    &:focus {
+    border: 1px solid #D0C9D6;
+    }
+}
+.ti-input.error {
+    border: 1px solid #ff647c;
+    box-shadow: 0 5px 11.5px rgba(255, 100, 124, 0.07);
+}
+.ti-label {
+
+    font-family: "SF Pro Text";
+    font-size: 16px;
+    line-height: 6px;
+    /* identical to box height, or 150% */
+    text-transform: uppercase;
+    color: #3F3356;
+}
+.ti-error {
+    color: #FF647C;
+
+    overflow: hidden;
 }
