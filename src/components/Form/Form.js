@@ -52,8 +52,8 @@ export default class Form extends Component {
 
   validateField = id => {
     let error = "";
-    console.log(this.state.fields);
-    console.log(id)
+    //console.log(this.state.fields);
+    //console.log(id)
     const {
       value: fieldValue,
       validate,
@@ -61,7 +61,7 @@ export default class Form extends Component {
       customRules = {}
     } = this.state.fields[id];
     const rules = validate ? validate.split("|") : "";
-    console.log(rules)
+    //console.log(rules)
 
     if (rules.length) {
       for (const rule in rules) {
@@ -109,6 +109,25 @@ export default class Form extends Component {
       },
     });
   };
+  setFile = (event, { id, value }) => {
+    console.log("FILE SETTİNG")
+    if (event) {
+      event.persist();
+    }
+    const { fields } = this.state;
+    const field = fields[id];
+
+    this.addField({
+      field: {
+        ...field,
+        // consider value passed as the new value if
+        // event is not defined. This will be useful
+        // when you want to update a field programmatically.
+
+        value: value,
+      },
+    });
+  };
   validateForm = fieldName => {
         const { shouldValidateForm, fields } = this.state
         const field = fields[fieldName]
@@ -126,8 +145,8 @@ export default class Form extends Component {
             const fieldData = fields[unit]
 
             if (fieldData) {
-                console.log('fieldData:')
-                console.log(fieldData)
+                //console.log('fieldData:')
+                //console.log(fieldData)
             this.validateField(fieldData.id)
             }
         }
@@ -148,17 +167,25 @@ export default class Form extends Component {
       },
       setFields: this.setFields,
       validateField: this.validateField,
-      validateForm: this.validateForm
+      validateForm: this.validateForm,
+      setFile: this.setFile,
     };
 
     
 
     return (
-      <form className="form-container" action="">
+      <div className="form-container">
+        <form className="form-wrapper" action="">
         <FormCtx.Provider value={formCtx}>
-          {this.props.children}
+          {this.props.children.map(child =>
+            <div className="form-row">
+              {child}
+            </div>)}
         </FormCtx.Provider>
       </form>
+      </div>
+
+      
     );
   }
 }
