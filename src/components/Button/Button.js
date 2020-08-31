@@ -19,7 +19,7 @@ export const Button = ({
   loadingText,
   ...props }) => {
   
-  const { validateForm, formData = {}, setFormData,submit } = useContext(
+  const { validateForm, formData = {}, setFormData, fields } = useContext(
     FormCtx
   );
   const { defaultClasses, isFetching, errors } = formData
@@ -45,11 +45,12 @@ export const Button = ({
         event.preventDefault()
         if (!isFetching) {
           validateForm()
-
-          if (errors && Object.values(errors).join('').length === 0) {
-            setFormData({ isFetching : true })
+          console.log(errors)
+          if ( !(errors && Object.values(errors).join('').length === 0)) {
+            
+            //setFormData({ isFetching : true })
             onClick({
-              formData,
+              fields,
               finishRequest
             })
           }
