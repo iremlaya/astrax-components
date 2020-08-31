@@ -2,7 +2,7 @@ import { FormCtx } from '../Form/Form';
 import React,{ useState, useEffect, useContext } from 'react'; 
 import PropTypes from 'prop-types';
 import Radio from '../Radio';
-import Selector from '../Selector';
+import Checkbox from '../Checkbox';
 
 export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
     const [selectedChoices, setSelectedChoices] = useState([]);
@@ -31,7 +31,7 @@ export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
                 key={choice.id}
                 onClick={(event) => selectChoice(event, choice)}
                 >
-                    {multiple ? <Selector/> :<Radio/>}
+                    {multiple ? <Checkbox/> :<Radio/>}
                     <p className="cb-choice">
                         {choice}
                     </p>
