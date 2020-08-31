@@ -1,0 +1,33 @@
+[type="file"] {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    white-space: nowrap;
+    width: 1px;
+  
+    + label {
+      // File upload button styles
+      
+    background-color: #000;
+    border-radius: 4rem;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 2rem 4rem;
+    }
+  
+    &:focus + label,
+    + label:hover {
+      // File upload hover state button styles
+      background-color: #f15d22;
+    }
+  
+    &:focus + label {
+      // File upload focus state button styles
+
+    outline: 1px dotted #000;
+    }
+  }
