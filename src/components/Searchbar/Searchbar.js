@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { FormCtx } from '../Form/Form';
 import './searchbar.scss';
 // import Arrow from './assets/dropdown-arrow.svg';
 
@@ -9,7 +10,7 @@ import './searchbar.scss';
  * Primary UI component for user interaction
  */
 
-export const Searchbar = ({ ...props }) => {
+export const Searchbar = ({ id, list, label, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [search, setSearch] = useState('');
@@ -17,11 +18,14 @@ export const Searchbar = ({ ...props }) => {
   const clickRef = useRef(null);
   const searchField = useRef(null);
 
-  const list = [
-    { id: 0, title: 'featured', selected: false },
-    { id: 1, title: 'city', selected: false },
-    { id: 2, title: 'cool', selected: false },
-  ];
+  
+  const { fields, addField, removeField, formData = {}, setFields } = useContext(
+    FormCtx
+  );
+
+
+  const field = fields[id] || {};
+
   useEffect(() => {
     /**
      * Close if clicked on outside of element
@@ -53,10 +57,17 @@ export const Searchbar = ({ ...props }) => {
   useEffect(() => {
     window.removeEventListener('click', setIsOpen(false));
   }, []);
-
-  const selectCollection = (item) => {
+  useEffect(() => {
+      addField({
+        field: {id,...props},
+        value: "",
+      });
+    }, []);
+  const selectCollection = (event, item) => {
     setIsOpen(false);
     setSearch(item.title);
+    field.value = item;
+    setFields(event, field);
     /*
     if (selected.length > 1) {
       let prevSelected = selected[selected.length - 2];
@@ -105,7 +116,7 @@ export const Searchbar = ({ ...props }) => {
           <li
             className={`searchbar-list-item${isSelected(item) ? ' searchbar-list-item-selected' : ''}`}
             key={item.id}
-            onClick={() => selectCollection(item)}
+            onClick={(event) => selectCollection(event, item)}
           >
             {item.title}
           </li>
