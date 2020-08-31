@@ -1,3 +1,66 @@
+.loading-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+}
+
+.loading-wrapper .dots{
+  box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.07);
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+  height: 30px;
+background: red;
+}
+.loading-wrapper .progress{
+  width: 200px;
+  height: 29px;
+}
+
+.header {
+
+}
+
+.header .slider{
+
+}
+
+.header .dot-pulse {
+
+}
+
+/**
+ * ==============================================
+ * Progress Bar
+ * ==============================================
+ */
+.progress-bar {
+  position: relative;
+  height: 8px;
+  width: 200px;
+  border-radius: 8px;
+  border: none;
+  background: #D5F2EA;
+}
+
+.filler {
+  background: #00C48C;
+  height: 100%;
+  border-radius: inherit; 
+  transition: width .2s ease-in;
+}
+
+#vids {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#vids a:first-of-type {
+  margin-bottom: 5px;
+}
 /**
  * ==============================================
  * Dot Pulse
@@ -16,16 +79,16 @@
     background-color: $bg-color;
     color: $color;
   }
-  $dot-width: 10px !default;
-  $dot-height: 10px !default;
+  $dot-width: 4px !default;
+  $dot-height: 4px !default;
   $dot-radius: $dot-width/2 !default;
   
-  $dot-color: #9880ff !default;
+  $dot-color: #3F3356 !default;
   $dot-bg-color: $dot-color !default;
   $dot-before-color: $dot-color !default;
   $dot-after-color: $dot-color !default;
   
-  $dot-spacing: $dot-width + $dot-width/2 !default;
+  $dot-spacing: $dot-width * 2 !default;
 
 
 
@@ -35,7 +98,10 @@
  $x3: -$left-pos + $dot-spacing;
  
  .dot-pulse {
+   //position: relative;
+   display: flex;
    position: relative;
+  
    left: $left-pos;
  
    @include dot;

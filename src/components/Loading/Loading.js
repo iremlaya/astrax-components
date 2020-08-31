@@ -1,19 +1,50 @@
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './loading.scss';
 
 /**
  * Primary UI component for user interaction
  */
-export const Loading = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
-  return (
-      <div className="loading-wrapper">
-          <div className="dot-pulse">
+const Filler = (props) => <div className="filler" style={{ width: `${props.percentage}%` }} />;
 
-          </div>
-      </div>
+const ProgressBar = (props) => (
+  <div className="progress-bar">
+    <Filler percentage={props.percentage} />
+  </div>
+);
+
+export const Loading = ({
+  dots, label, slider, ...props
+}) => {
+  const [percentage, setPercentage] = useState(0);
+
+  const nextStep = (step) => {
+    if (percentage === 100) return;
+    setPercentage(percentage + step);
+  };
+  const renderHeader = () => {
+    if (label) {
+      return (
+        // <div className={`header ${mode}`}>
+        <div className="header">
+          {label}
+        </div>
+      );
+    }
+    return null;
+  };
+  const renderLoading = () => (
+    <div className={`loading-wrapper ${dots ? ' dots' : ' progress'}`}>
+      {dots ? <div className="dot-pulse" /> : <ProgressBar percentage={percentage} />}
+    </div>
+  );
+
+  return (
+    <div className="loading-container">
+      {renderHeader()}
+      {renderLoading()}
+    </div>
   );
 };
 
