@@ -1,0 +1,17 @@
+@import url(//db.onlinewebfonts.com/c/64a2cfb57c4a5df1013e4f2e5bf3eff3?family=SF+Pro+Display);  
+.header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 240px;
+}
+.header-label {
+    font-family: "SF Pro Display";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+    color: #1A051D;
+
+}
