@@ -5,15 +5,15 @@
 	width: 100px;
 	height: 100px;
 }
-ul {
+.dd-container ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	border-bottom: 1px solid rgba(213, 215, 229, 0.3);
 }
-li {
+.dd-container li  {
 	margin: 0;
-	padding: 0;
+	//padding: 0;
 	list-style: none;
 	border-bottom: 1px solid rgba(213, 215, 229, 0.3);
 	&:last-child {
@@ -121,6 +121,7 @@ border-radius: 4px;
 	color: #D0C9D6;
 	border: 0;
 	margin: 0;
+	
 	
 	&:hover {
 		color: #3F3356;
