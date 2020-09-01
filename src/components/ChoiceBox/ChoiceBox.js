@@ -3,7 +3,7 @@ import React,{ useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
-
+import './choicebox.scss';
 export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
     const [selectedChoices, setSelectedChoices] = useState([]);
     const { fields, addField, setFields } = useContext(
@@ -19,24 +19,26 @@ export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
       }, []);
     const selectChoice = (event, choice) => {
         setSelectedChoices(() => selectedChoices.concat(choice));
-        field.value.concat(choice);
+        //console.log(field);
+        field.value = selectedChoices;
         setFields(event, field);
     }
     return ( 
-        <div>
+        <div className="choicebox-container">
             <p className="cb-label">{label}</p>
             <ul onClick={(e) => e.stopPropagation()}>
-            {choices.map(choice => {
+            {choices.map(choice => (
                 <li
+                className="cb-row"
                 key={choice.id}
                 onClick={(event) => selectChoice(event, choice)}
                 >
                     {multiple ? <Checkbox/> :<Radio/>}
                     <p className="cb-choice">
-                        {choice}
+                        {choice.title}
                     </p>
                 </li>
-            })}
+            ))}
             </ul>
         </div>
         
