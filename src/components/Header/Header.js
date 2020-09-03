@@ -3,18 +3,14 @@ import React, {
   useContext, useState, useRef, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './header.scss';
   
 export const Header = ({ label, sublabel, children,...props }) => {
+  let location = useLocation();
   const handleClickGithub = () => {
-    window.open("https://github.com/iremlaya/custom-lib", "_blank") 
-  }
-  const handleClickJotform = () => {
-
-  }
-  const handleClickMain = () => {
-
+    window.open("https://github.com/iremlaya/custom-lib", "_blank")
+    
   }
   return (
     <div className="header-container">
@@ -32,31 +28,35 @@ export const Header = ({ label, sublabel, children,...props }) => {
         
       </div>
       <div className="header-buttons">
-        <button
-          type="button"
+        <Link
+          to="/Home"
           // className={['checkbox-unchecked', `storybook-button--${size}`, mode].join(' ')}
-          className="github-button"
+          className="routes"
+         
+        ><span className={`${location.pathname === '/Home' ? "highlight": ""}`}> Home </span>
+        </Link>
+        <p
+          // className={['checkbox-unchecked', `storybook-button--${size}`, mode].join(' ')}
+          className="routes"
           onClick={handleClickGithub}
           {...props}
         >
-          <div className="github-icon" />
-        </button>
+          GitHub
+        </p>
         <Link
           to="/Demo"
           // className={['checkbox-unchecked', `storybook-button--${size}`, mode].join(' ')}
-          className="jotform-button"
+          className="routes"
          
-        >
-          <div className="jotform-icon" />
+        ><span className={`${location.pathname === '/Demo' ? "highlight": ""}`}> JotForm </span>
         </Link>
         <Link
           to="/About"
           // className={['checkbox-unchecked', `storybook-button--${size}`, mode].join(' ')}
-          className="about-button"
+          className="routes"
          
         >
-          <div className="about-head"/>
-          <div className="about-icon" />
+          <span className={`${location.pathname === '/About' ? "highlight": ""}`}> About </span>
         </Link>
       </div>
   
