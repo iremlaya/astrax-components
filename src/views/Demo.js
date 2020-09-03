@@ -30,6 +30,7 @@ export const Demo = () => {
   },[])
 
   useEffect(() => {
+    console.log("uhhhhhhhhhhh")
     if (formId) {
         setIsFetching(true);
         window.JF.getFormQuestions("202377427183053", (response) => {   
@@ -49,31 +50,71 @@ export const Demo = () => {
             });
         for (let index = 0; index < newFormData.length; index++) {
             const element = newFormData[index];
-            const id = `${element.type}_${index}`
+
+            const id = `${element.type}_${element.qid}`
+            const req = element.required === "No" ? "" : "required";
+
             if (element.type ==="control_head") {
                 tempChildren.push(<HeaderText id={id} label={element.text}/>)
+
             } else if (element.type === "control_fullname") {
-                console.log(element)
-            } else if (element.type === "control_email") {
+                tempChildren.push(<TextInput id={id} validate={`${req}`} label={element.text}/>)
                 
+            } else if (element.type === "control_email") {
+                tempChildren.push(<TextInput id={id} validate={`${req}|email`} label={element.text}/>)
             } else if (element.type === "control_address") {
+                tempChildren.push(<TextInput type="textarea" id={id} validate={`${req}`} label={element.text}/>)
                 
             } else if (element.type === "control_phone") {
+                tempChildren.push(<TextInput id={id} phoneNumber={true} validate={`${req}|phone`} label={element.text}/>)
                 
             }else if (element.type === "control_dropdown") {
-                
+              /*
+              const optionsArr = element.options.split("|");
+              const options = [];
+              for (let i = 0; i < optionsArr.length;) {
+                const option = {
+                  id: i,
+                  selected: false,
+                  title: optionsArr[i]
+                }
+                options.push(option)
+              }
+              console.log(options);*/
             }else if (element.type === "control_textbox") {
                 
             }else if (element.type === "control_textarea") {
-                
+              
+              tempChildren.push(<TextInput type="textarea" id={id} validate={`${req}`} label={element.text}/>)
+
             }else if (element.type === "control_button") {
                 
+            }else if (element.type === "control_fileupload") {
+                tempChildren.push(<FileSelector id={id} label={`${element.text !== "" ? element.text : "File Select"}`} />)
             }
             
         }
         setChildren(tempChildren);
       }
-     
+     /* 
+     sublabels:
+addr_line1: "Street Address"
+addr_line2: "Street Address Line 2"
+cc_ccv: "Security Code"
+cc_exp_month: "Expiration Month"
+cc_exp_year: "Expiration Year"
+cc_firstName: "First Name"
+cc_lastName: "Last Name"
+cc_number: "Credit Card Number"
+city: "City"
+country: "Country"
+postal: "Postal / Zip Code"
+state: "State / Province"
+*/
+
+/* 
+
+*/
     
   }, [formData])
 
@@ -93,7 +134,7 @@ export const Demo = () => {
   const renderLogin = () => {
 
     return (
-        <Form style={{display: "flex", flexDirection: "column", justifyContent:"center", alignItems:"center",margin:"auto",paddingTop:"none"}} shouldValidateForm={true}>
+        <Form style={{display: "flex", flexDirection: "column", justifyContent:"center", alignItems:"center",margin:"auto",paddingTop:"0"}} shouldValidateForm={true}>
             <TextInput id="jotform-id" label="Enter Jotform ID" validate={"numeric|required"}/>
             <Button onClick={(id) => setFormId(id)} displayName="SUBMIT" size="medium"/>
         </Form>
