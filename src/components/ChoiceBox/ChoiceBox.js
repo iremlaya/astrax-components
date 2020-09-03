@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 import './choicebox.scss';
+import { check } from 'prettier';
 export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
     const [selectedChoices, setSelectedChoices] = useState([]);
+    const [selectedChoicesHistory, setSelectedChoicesHistory] = useState([]);
     const { fields, addField, setFields } = useContext(
         FormCtx
     );
@@ -14,32 +16,55 @@ export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
     useEffect(() => {
         addField({
           field: {id,...props},
-          value: [],
+          value: "",
         });
       }, []);
     const selectChoice = (event, choice) => {
-        setSelectedChoices(() => selectedChoices.concat(choice));
-        //console.log(field);
-        field.value = selectedChoices;
+
+        if (!multiple) {
+            setSelectedChoices(() => selectedChoices.pop());
+        }
+        if(selectedChoices.includes(choice)) {
+            setSelectedChoices(() => selectedChoices.splice(selectedChoices.indexOf(choice),1));
+        }else{
+            setSelectedChoices(() => selectedChoices.concat(choice));
+            setSelectedChoicesHistory(() => selectedChoicesHistory.concat(choice));
+        }
+        
+        field.value = JSON.stringify(selectedChoices);
+        console.log(field.value)
         setFields(event, field);
+    }
+    const check = (choice) => {
+        
+        if (selectedChoicesHistory.includes(choice) && !selectedChoices.includes(choice)) {
+
+            return false;
+        } else if (selectedChoices.includes(choice)) {
+            return true;
+        }
+        return null;
     }
     return ( 
         <div className="choicebox-container">
-            <p className="cb-label">{label}</p>
-            <ul onClick={(e) => e.stopPropagation()}>
-            {choices.map(choice => (
-                <li
-                className="cb-row"
-                key={choice.id}
-                onClick={(event) => selectChoice(event, choice)}
-                >
-                    {multiple ? <Checkbox/> :<Radio/>}
-                    <p className="cb-choice">
-                        {choice.title}
-                    </p>
-                </li>
-            ))}
-            </ul>
+            <div className="choicebox-wrapper">
+                <p className="cb-label">{label}</p>
+                <ul onClick={(e) => e.stopPropagation()}>
+                {choices.map(choice => (
+                    <li
+                    className="cb-row"
+                    key={choice.id}
+                    onClick={(event) => selectChoice(event, choice)}
+                    >
+                        {multiple ? <Checkbox/> :<Radio checked={check(choice)}/>}
+                        <p className="cb-choice">
+                            {choice.title}
+                        </p>
+                    </li>
+                ))}
+                </ul>
+            </div>
+            
         </div>
         
      

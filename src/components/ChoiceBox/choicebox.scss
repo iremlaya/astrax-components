@@ -1,24 +1,38 @@
 @import "//db.onlinewebfonts.com/c/1c45e28f8e86cc89876f003b953cc3e9?family=SF+Pro+Text";
-.cb-container {
+.choicebox-container {
+    background: #FFFFFF;
+    /* Dropshadow 3 */
+
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    width:48vh;
    
+}
+.choicebox-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    
+
 }
 .choicebox-container ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 16px;
 }
 .cb-row{
     display: flex;
     justify-content: flex-start; 
     align-items: flex-start;
-    padding:16px
+    padding:16px;
+    padding-top:0;
 
 }
 .cb-choice {
     margin:0;
     margin-left: 10px;
     padding: 0;
-    
     font-family: "SF Pro Text";
     color: #1A051D;
     font-style: normal;
@@ -31,4 +45,6 @@
     line-height: 22px;
     text-transform: uppercase;
     color: #3F3356;
+    padding-left: 24px;
+    padding-top:16px;
 }
