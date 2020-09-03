@@ -28,7 +28,6 @@ export default class Form extends Component {
 
   addField({ field }) {
     const { id } = field;
-
     // Initiate all field values with default empty string.
     field = {
       value: '',
@@ -97,7 +96,7 @@ export default class Form extends Component {
     }
     const { fields } = this.state;
     const field = fields[id];
-
+    //console.log(field.value)
     this.addField({
       field: {
         ...field,
@@ -105,7 +104,7 @@ export default class Form extends Component {
         // event is not defined. This will be useful
         // when you want to update a field programmatically.
 
-        value: id === 'dropdown' ? value : event ? event.currentTarget.value : value,
+        value: id === 'dropdown' || id.indexOf('choicebox') !== -1 ? value : event ? event.currentTarget.value : value,
       },
     });
   };
@@ -131,7 +130,8 @@ export default class Form extends Component {
   validateForm = fieldName => {
         const { shouldValidateForm, fields } = this.state
         const field = fields[fieldName]
-
+        console.log("in form: ");
+        console.log(fields);  
         if (shouldValidateForm) {
         if (field) {
             if ( field.shouldValidateField ) {
@@ -157,8 +157,7 @@ export default class Form extends Component {
 
   render() {
     const { fields, errors } = this.state;
-    console.log("in form: ");
-    console.log(fields);    
+    
     const formCtx = {
       fields,
       errors,
@@ -175,10 +174,10 @@ export default class Form extends Component {
 
     return (
       <div className="form-container">
-        <form className="form-wrapper" action="">
+        <form className="form-wrapper" action="" style={{ ...this.props.style, paddingTop:"10vh"}}>
         <FormCtx.Provider value={formCtx}>
           {this.props.children.map(child =>
-            <div className="form-row">
+            <div className="form-row" style={{paddingTop:"none", ...this.props.style}}  >
               {child}
             </div>)}
         </FormCtx.Provider>

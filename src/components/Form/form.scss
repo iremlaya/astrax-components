@@ -4,18 +4,14 @@ html, body, #app, #app>div {
   }
   body > #root > div {
     height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    background: rgba(247, 247, 248, 0.6);
+    
   }
 
 .form-container {
-    background: rgba(247, 247, 248, 0.6);
-    border:5px solid red;
     
-    //position: fixed;
-    //width: 100%;
-    //height: 100%;
-    //overflow: auto;
-    
+  
 }
 .form-wrapper {
   display: block;
@@ -26,12 +22,11 @@ html, body, #app, #app>div {
 
   max-height: 100vh;
   max-width: 100vh;
-  border:1px solid red; 
 }
 
 .form-row {
   margin-bottom: 50px;
   margin-top: 50px;
-  margin-left: 10px;
+  margin-left: 30vh;
   line-height: 20px;
 }
