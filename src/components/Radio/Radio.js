@@ -20,12 +20,12 @@ export const Radio = ({
     <button
       type="button"
       // className={['checkbox-unchecked', `storybook-button--${size}`, mode].join(' ')}
-      className={`radio ${(check) ? ' checked' : ' unchecked'}`}
+      className={`radio ${(check && checked) ? ' checked' : ' unchecked'}`}
       style={backgroundColor && { backgroundColor }}
       onClick={handleClick}
       {...props}
     >
-      {(check) && <div className="check-radio" />}
+      {(check && checked) && <div className="check-radio" />}
     </button>
   );
 };
