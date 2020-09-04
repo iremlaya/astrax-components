@@ -1,0 +1,60 @@
+@import "//db.onlinewebfonts.com/c/1c45e28f8e86cc89876f003b953cc3e9?family=SF+Pro+Text";    
+@mixin ccard-text {
+    font-family: "SF Pro Text";
+    font-size: 15px;
+    line-height: 20px;
+    /* or 133% */
+    text-align: left;
+    letter-spacing: -0.24px;
+    color: #3F3356;
+}
+@mixin ccard-text-header{
+    font-family: "SF Pro Text";
+    font-size: 22px;
+    line-height: 28px;
+    /* identical to box height, or 127% */
+    text-align: left;
+    letter-spacing: 0.35px;
+    font-weight: 600;
+    color: #1A051D;
+}
+
+.ccard-wrapper {
+    width:160px;
+    height: 190px;
+    background: #FFFFFF;
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.ccard-cover {
+    border-radius: 12px 12px 0px 0px;
+    flex:3;
+    width: 100%;
+    height: 100%;
+
+}
+.ccard-body-wrapper {
+    flex:1;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.ccard-code {
+    font-family: SF Pro Text;
+    font-size: 17px;
+    line-height: 22px;
+    /* identical to box height, or 129% */
+
+    text-align: center;
+
+    color: #3F3356;
+
+}
