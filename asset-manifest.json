@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/custom-lib/static/css/main.6f99bdef.chunk.css",
+    "main.js": "/custom-lib/static/js/main.0c21f5be.chunk.js",
+    "main.js.map": "/custom-lib/static/js/main.0c21f5be.chunk.js.map",
+    "runtime-main.js": "/custom-lib/static/js/runtime-main.1c392375.js",
+    "runtime-main.js.map": "/custom-lib/static/js/runtime-main.1c392375.js.map",
+    "static/js/2.2ab51df4.chunk.js": "/custom-lib/static/js/2.2ab51df4.chunk.js",
+    "static/js/2.2ab51df4.chunk.js.map": "/custom-lib/static/js/2.2ab51df4.chunk.js.map",
+    "index.html": "/custom-lib/index.html",
+    "precache-manifest.c692ca0d7c96744edd97f255e52fb533.js": "/custom-lib/precache-manifest.c692ca0d7c96744edd97f255e52fb533.js",
+    "service-worker.js": "/custom-lib/service-worker.js",
+    "static/css/main.6f99bdef.chunk.css.map": "/custom-lib/static/css/main.6f99bdef.chunk.css.map",
+    "static/js/2.2ab51df4.chunk.js.LICENSE.txt": "/custom-lib/static/js/2.2ab51df4.chunk.js.LICENSE.txt",
+    "static/media/modal.scss": "/custom-lib/static/media/Camera.e067dece.svg",
+    "static/media/popup.scss": "/custom-lib/static/media/Down.3d38d5b5.svg",
+    "static/media/header.scss": "/custom-lib/static/media/jotform-logo-transparent-writing.c8cf4890.svg",
+    "static/media/card.scss": "/custom-lib/static/media/book2.372e3031.jpg",
+    "static/media/searchbar.scss": "/custom-lib/static/media/search-fade.60758874.svg",
+    "static/media/checkbox.scss": "/custom-lib/static/media/check.8a70241f.svg",
+    "static/media/dropdown.scss": "/custom-lib/static/media/dropdown-arrow.f7921343.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1c392375.js",
+    "static/js/2.2ab51df4.chunk.js",
+    "static/css/main.6f99bdef.chunk.css",
+    "static/js/main.0c21f5be.chunk.js"
+  ]
+}
