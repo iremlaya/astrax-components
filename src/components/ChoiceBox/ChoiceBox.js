@@ -31,22 +31,23 @@ export const ChoiceBox = ({id, label, multiple, choices, ...props}) => {
             setSelectedChoicesHistory(() => selectedChoicesHistory.concat(choice));
         }
         
-        field.value = JSON.stringify(selectedChoices);
-        console.log(field.value)
-        setFields(event, field);
+        field.value = choice.title;
+        setFields(null, field);
     }
     const check = (choice) => {
         
-        if (selectedChoicesHistory.includes(choice) && !selectedChoices.includes(choice)) {
-
+        if (!selectedChoices.includes(choice) && selectedChoicesHistory.includes(choice)) {
+            
             return false;
-        } else if (selectedChoices.includes(choice)) {
+        }
+        if (selectedChoices.includes(choice)) {
+            
             return true;
         }
         return null;
     }
     return ( 
-        <div className="choicebox-container">
+        <div className="choicebox-container" {...props}>
             <div className="choicebox-wrapper">
                 <p className="cb-label">{label}</p>
                 <ul onClick={(e) => e.stopPropagation()}>

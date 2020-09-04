@@ -153,15 +153,19 @@ export const Searchbar = ({ id, list, label, ...props }) => {
 
   );
   return (
-    <div ref={clickRef} className={`searchbar-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
-      {renderHeader()}
-      {isOpen && (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <ul className="searchbar-list searchable" onClick={(e) => e.stopPropagation()}>
-        {listItems()}
+    <div>
 
-      </ul>
-      )}
+<p className="dd-label">{label}</p>
+       <div ref={clickRef} className={`searchbar-wrapper ${isOpen ? 'dd-open' : ''}`} onClick={toggle} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+        {renderHeader()}
+        {isOpen && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+        <ul className="searchbar-list searchable" onClick={(e) => e.stopPropagation()}>
+          {listItems()}
+
+        </ul>
+        )}
+      </div>
     </div>
   );
 };

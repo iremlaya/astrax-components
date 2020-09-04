@@ -9,14 +9,11 @@ import HeaderText from "../components/HeaderText";
 import Header from "../components/Header";
 import FileSelector from "../components/FileSelector";
 import ChoiceBox from "../components/ChoiceBox";
-import Pagination from "../components/Pagination";
 
+import './demo.scss';
 
-import {
+const keys = ["c7e30e433971fbdc627e4ffe478a0095", "cdfd7881caa5b60de7278561c124747d"]
 
-  BrowserRouter as Router,
-  Route, Switch, Redirect
-} from "react-router-dom"
 
 
 export const Demo = () => {
@@ -27,15 +24,18 @@ export const Demo = () => {
 
   useEffect(() => {
       //window.JF.login();
+      window.JF.initialize({apiKey: keys[0]})
   },[])
 
   useEffect(() => {
-    console.log("uhhhhhhhhhhh")
     if (formId) {
+        const id = formId.fields["jotform-id"]["value"]
+        console.log(id)
         setIsFetching(true);
-        window.JF.getFormQuestions("202377427183053", (response) => {   
+        window.JF.getFormQuestions(id, (response) => {   
+            
+            setFormData(response);
             setIsFetching(false);
-            setFormData(response)
         });
     }
   }, [formId])
@@ -69,10 +69,10 @@ export const Demo = () => {
                 tempChildren.push(<TextInput id={id} phoneNumber={true} validate={`${req}|phone`} label={element.text}/>)
                 
             }else if (element.type === "control_dropdown") {
-              /*
+              
               const optionsArr = element.options.split("|");
               const options = [];
-              for (let i = 0; i < optionsArr.length;) {
+              for (let i = 0; i < optionsArr.length; i++) {
                 const option = {
                   id: i,
                   selected: false,
@@ -80,57 +80,134 @@ export const Demo = () => {
                 }
                 options.push(option)
               }
-              console.log(options);*/
+              tempChildren.push(<Dropdown id={id} label={element.text} list={options} />)
             }else if (element.type === "control_textbox") {
+              const isPhone = element.text === "Phone" ? true : false;
+              tempChildren.push(<TextInput id={id} phoneNumber={isPhone} validate={`${isPhone ? "phone" : ""}|${req}`} label={element.text}/>)
                 
             }else if (element.type === "control_textarea") {
               
               tempChildren.push(<TextInput type="textarea" id={id} validate={`${req}`} label={element.text}/>)
 
             }else if (element.type === "control_button") {
+              tempChildren.push(<Button onClick={(data) => submit(data)} displayName={element.text} id={id} size="medium"/>)
                 
             }else if (element.type === "control_fileupload") {
                 tempChildren.push(<FileSelector id={id} label={`${element.text !== "" ? element.text : "File Select"}`} />)
+            }else if (element.type === "control_radio") {
+              const optionsArr = element.options.split("|");
+              const options = [];
+              for (let i = 0; i < optionsArr.length; i++) {
+                const option = {
+                  id: i,
+                  selected: false,
+                  title: optionsArr[i]
+                }
+                options.push(option)
+              }
+              tempChildren.push(<ChoiceBox id={id} label={element.text} choices={options}/>)
+          }else if (element.type === "control_checkbox") {
+            const optionsArr = element.options.split("|");
+            const options = [];
+            for (let i = 0; i < optionsArr.length; i++) {
+              const option = {
+                id: i,
+                selected: false,
+                title: optionsArr[i]
+              }
+              options.push(option)
             }
+            tempChildren.push(<ChoiceBox id={id} label={element.text} choices={options} multiple={true}/>)
+        }
+            
             
         }
         setChildren(tempChildren);
       }
-     /* 
-     sublabels:
-addr_line1: "Street Address"
-addr_line2: "Street Address Line 2"
-cc_ccv: "Security Code"
-cc_exp_month: "Expiration Month"
-cc_exp_year: "Expiration Year"
-cc_firstName: "First Name"
-cc_lastName: "Last Name"
-cc_number: "Credit Card Number"
-city: "City"
-country: "Country"
-postal: "Postal / Zip Code"
-state: "State / Province"
-*/
-
-/* 
-
-*/
     
   }, [formData])
+ 
 
-  const submitId = (data) => {
-    console.log(data)
-    //window.JF.login()
-  }
   const submit =  (data) => {
-    console.log(data)
+    const formData = data.fields;
+    const submission = new Object();
+    for (let [key, element] of Object.entries(formData)) {
+      const idField = key.split('_');
+      const qid = idField[2];
+      //console.log(idField)
+      //console.log(qid)
+      submission[qid] = {}
+      const type = [idField[0], "_", idField[1]].join("");
+      if (element.value !== "") {
+        if (type === "control_fullname") {
+            
+            const nameArr = element.value.split(" ");
+            
+            const obj = {
+              "first":nameArr[0],
+              "last":nameArr[nameArr.length - 1]
+            }
 
+            submission[qid] = (JSON.stringify(obj));
+            
+        } else if (type === "control_email") {
+            submission[qid] = element.value;
+        } else if (type === "control_address") {
+          const addArr = element.value.split("\n");
+          /*
+          addr_line1: "Street Address"
+          addr_line2: "Street Address Line 2"
+          city: "City"
+          country: "Country"*/
+          submission[qid]['addr_line1'] = addArr[0];
+          submission[qid]['addr_line2'] = addArr[1];
+          submission[qid]['city'] = addArr[2];
+          submission[qid]['country'] = addArr[3];
+          submission[qid] = JSON.stringify(submission[qid]);
+    
+    
+        } else if (type === "control_phone") {
+          /*
+          area": "Area Code",
+          "phone": "Phone Number", */
+          const telArr = element.value.split("-");
+          submission[qid]['area'] = telArr[0];
+          submission[qid]['phone'] = telArr[1];
+            
+        }else if (type === "control_dropdown") {
+          submission[qid] = element.value;
+        }else if (type === "control_textbox") {
+          submission[qid] = element.value;
+            
+        }else if (type === "control_textarea") {
+          submission[qid] = element.value;
+          
+    
+        }else if (type === "control_button") {
+            
+        }else if (type === "control_fileupload") {
+        }else if (type === "control_radio") {
+          submission[qid] = element.value;
+        }else if (type === "control_checkbox") {
+        } 
+      }
+    
+    }
+    console.log(submission);
+
+    const id = formId.fields["jotform-id"]["value"]
+    setIsFetching(true);
+    window.JF.createFormSubmission(id, submission, function(response){
+      /**
+       successful response including new submission
+       .
+       */
+      setIsFetching(false);
+      //window.open("https://github.com/iremlaya/custom-lib", "_blank")
+      setChildren(null);
+      setFormData(null);
+  });
   }
-  const list = [
-    { id: 0, title: 'featured', selected: false },
-    { id: 1, title: 'city', selected: false },
-    { id: 2, title: 'cool', selected: false },
-  ];
   const renderLogin = () => {
 
     return (
@@ -141,30 +218,30 @@ state: "State / Province"
     )
   }
   const renderChildren = () => {
-      return( children.map(child => <div>{child}</div>))
+      return( children.map(child =>  
+      (<div className="form-row" style={{paddingTop:"none"}}>
+      {child}
+      </div>)))
   }
   const renderForm = () => {
     return (
         <Form style={{paddingTop:"none"}} shouldValidateForm={true} >
-                {renderChildren()}
-                <HeaderText id="headertext" label="I'm Header" />
-                <FileSelector id="fileSelector" label="File Select" />
-                <TextInput type="textarea" id="email" label="Email address"/>
-                <TextInput id="phone" label="phone" phoneNumber={true} validate={"phone"}/>
-                <TextInput id="userName" validate={"required|numeric"} label="User name"/>
-                <Dropdown id="dropdown" label="Dropdown" list={list}/>
-                <Searchbar id="searchbar" label="Searchbar" list={list}/>
-                <ChoiceBox id="choicebox" label="single choose" choices={list}/>
-                <ChoiceBox id="choicebox1" label="multi choose" choices={list} multiple={true}/>
-                <Button onClick={(data) => submit(data)} displayName="SUBMIT" size="medium"/>
-            </Form>
+          {/*<Searchbar id="searchbar" label="Searchbar" list={list}/>*/}
+          {renderChildren()}
+        </Form>
     )
   }
+  const renderLoading = () => (
+    <div className="loader-container">
+      <div class="loader" />
+      <p className="loading-text">Loading...</p>
+    </div>
+    
+  )
   
   return (
       <div>
-          {formData ? isFetching ? "loading" : children ? renderForm() : "loading": renderLogin()}
-         
+        {isFetching ? renderLoading() : children ? renderForm() : renderLogin()} 
       </div>
        
   );

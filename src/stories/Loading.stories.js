@@ -13,25 +13,16 @@ export default {
 // eslint-disable-next-line react/jsx-props-no-spreading
 const Template = (args) => <Loading {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Loading',
+export const Dots = Template.bind({});
+Dots.args = {
+  dots: true,
+  slide: false,
+  label: '',
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Loading',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Loading',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
+export const Slider = Template.bind({});
+Slider.args = {
+  dots: false,
+  slide: true,
   label: 'Loading',
 };

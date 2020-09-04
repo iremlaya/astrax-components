@@ -28,7 +28,7 @@ function App() {
   return (
     <Router>
         <div className="App">
-            <Header label="Components Library" sublabel="by moi."/>
+            <Header label="astrax" sublabel="component library."/>
                 <Switch>
                     <Route exact path="/Home" component={Home} />
                     <Route exact path="/">

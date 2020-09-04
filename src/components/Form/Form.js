@@ -60,11 +60,19 @@ export default class Form extends Component {
       customRules = {}
     } = this.state.fields[id];
     const rules = validate ? validate.split("|") : "";
-    //console.log(rules)
+    const tempArr = []
+    for (let index = 0; index < rules.length; index++) {
+      const element = rules[index];
+      if (element !== "") {
+        tempArr.push(element);
+      }
+      
+    }
+    
 
-    if (rules.length) {
-      for (const rule in rules) {
-        const ruleName = rules[rule];
+    if (tempArr.length) {
+      for (const rule in tempArr) {
+        const ruleName = tempArr[rule];
         const validation = validations[ruleName] || customRules[ruleName];
         const isRuleSatisfied =
           ruleName !== "required" && !fieldValue
@@ -104,12 +112,11 @@ export default class Form extends Component {
         // event is not defined. This will be useful
         // when you want to update a field programmatically.
 
-        value: id === 'dropdown' || id.indexOf('choicebox') !== -1 ? value : event ? event.currentTarget.value : value,
+        value:  event ? event.currentTarget.value : value,
       },
     });
   };
   setFile = (event, { id, value }) => {
-    console.log("FILE SETTİNG")
     if (event) {
       event.persist();
     }
@@ -123,7 +130,7 @@ export default class Form extends Component {
         // event is not defined. This will be useful
         // when you want to update a field programmatically.
 
-        value: value,
+        value: "",
       },
     });
   };
@@ -176,10 +183,7 @@ export default class Form extends Component {
       <div className="form-container">
         <form className="form-wrapper" action="" style={{ ...this.props.style, paddingTop:"10vh"}}>
         <FormCtx.Provider value={formCtx}>
-          {this.props.children.map(child =>
-            <div className="form-row" style={{paddingTop:"none", ...this.props.style}}  >
-              {child}
-            </div>)}
+          {this.props.children}
         </FormCtx.Provider>
       </form>
       </div>

@@ -20,18 +20,16 @@ const range = (from, to, step = 1) => {
   return range;
 }
 
-export const Pagination = ({...props}) =>  {
+export const Pagination = ({ totalRecords, pageLimit, pageNeighbours, ...props}) =>  {
   
-  const { totalRecords = null, pageLimit = 30, pageNeighbours = 0 } = props;
-  const pageLimit = typeof pageLimit === 'number' ? pageLimit : 30;
-  const totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
+  //const { totalRecordsP = null, pageLimitP = 30, pageNeighboursP = 0 } = props;
+  //const pageLimit = typeof pageLimitP === 'number' ? pageLimitP : 30;
+  //const totalRecords = typeof totalRecordsP === 'number' ? totalRecordsP : 0;
 
     // pageNeighbours can be: 0, 1 or 2
-  const pageNeighbours = typeof pageNeighbours === 'number'
-    ? Math.max(0, Math.min(pageNeighbours, 2))
-    : 0;
 
   const totalPages = Math.ceil(totalRecords / pageLimit);
+  console.log(totalPages);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -42,16 +40,16 @@ export const Pagination = ({...props}) =>  {
   const gotoPage = page => {
     const { onPageChanged = f => f } = props;
 
-    const currentPage = Math.max(0, Math.min(page, totalPages));
+    const currentPageN = Math.max(0, Math.min(page, totalPages));
 
     const paginationData = {
-      currentPage,
+      currentPage: currentPageN,
       totalPages,
       pageLimit,
       totalRecords
     };
-
-    setState({ currentPage }, () => onPageChanged(paginationData));
+    setCurrentPage(currentPageN);
+    onPageChanged(paginationData);
   }
 
   const handleClick = page => evt => {
@@ -61,12 +59,12 @@ export const Pagination = ({...props}) =>  {
 
   const handleMoveLeft = evt => {
     evt.preventDefault();
-    gotoPage(state.currentPage - (pageNeighbours * 2) - 1);
+    gotoPage(currentPage - (pageNeighbours * 2) - 1);
   }
 
   const handleMoveRight = evt => {
     evt.preventDefault();
-    gotoPage(state.currentPage + (pageNeighbours * 2) + 1);
+    gotoPage(currentPage + (pageNeighbours * 2) + 1);
   }
   const fetchPageNumbers = () => {
     /**
@@ -123,9 +121,8 @@ export const Pagination = ({...props}) =>  {
 
   }
   const renderPagination = () => {
-    if (!totalRecords || totalPages === 1) return null;
-
-    const { currentPage } = state;
+    console.log("anan")
+    if (!totalRecords || totalPages === 1) return <p>sek</p>;
     const pages = fetchPageNumbers();
 
     return (
@@ -166,7 +163,8 @@ export const Pagination = ({...props}) =>  {
     );
   }
   return (
-      {renderPagination}
+    <div>{renderPagination()}</div>
+      
   )
 }
 

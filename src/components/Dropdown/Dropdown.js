@@ -76,8 +76,8 @@ export const Dropdown = ({
     }
     setSelectedCollectionTitle(item.title);
     setSelected(() => selected.concat(item));
-    field.value = item;
-    setFields(event, field);
+    field.value = item.title;
+    setFields(null, field);
     /*
     if (selected.length > 1) {
       let prevSelected = selected[selected.length - 2];

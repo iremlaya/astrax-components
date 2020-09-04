@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.10.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.20.0",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3"
   },
   "scripts": {
@@ -38,21 +41,22 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
     "@storybook/addon-actions": "^6.0.2",
     "@storybook/addon-essentials": "^6.0.2",
     "@storybook/addon-links": "^6.0.2",
     "@storybook/node-logger": "^6.0.2",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.2",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
-    "eslint": "^7.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "jest": "^26.3.0",
     "prettier": "^2.0.5",
     "react-is": "^16.13.1"
   }

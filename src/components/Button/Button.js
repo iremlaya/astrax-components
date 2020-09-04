@@ -96,6 +96,7 @@ Button.propTypes = {
 Button.defaultProps = {
   backgroundColor: null,
   ghost: false,
+  displayName: "default",
   size: 'medium',
   validateForm : PropTypes.func.isRequired,
   setFormData  : PropTypes.func.isRequired,

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { FormCtx } from '../Form/Form';
 import './textInput.scss';
 
-export const TextInput = ({ id, ...props }) => {
+export const TextInput = ({ id, error, errorText, ...props }) => {
   const { fields, setFields, addField, errors, validateField } = useContext(
     FormCtx
   );
@@ -77,7 +77,7 @@ export const TextInput = ({ id, ...props }) => {
       <p className="ti-label">{label}</p>
       {type === "textarea" ? (
         <textarea
-          className={`ti-input long ${fieldError ? 'error' : ''}`}
+          className={`ti-input long ${fieldError || error ? 'error' : ''}`}
           type="text"
           value={field && field.value}
           onChange={(event) => setFields(event, field)}
@@ -86,7 +86,7 @@ export const TextInput = ({ id, ...props }) => {
         />
       ) : (
         <input
-          className={`ti-input ${basic ? 'default' : ''} ${fieldError ? 'error' : ''}`}
+          className={`ti-input ${basic ? 'default' : ''} ${fieldError || error ? 'error' : ''}`}
           type="text"
           value={field && field.value}
           onChange={(event) => setFields(event, field)}
@@ -95,7 +95,7 @@ export const TextInput = ({ id, ...props }) => {
         />
       )}
 
-      <p className={"ti-error"}>{fieldError}</p>
+      <p className={"ti-error"}>{error ? errorText : fieldError}</p>
     </div>
   ) : (
     ''

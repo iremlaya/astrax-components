@@ -6,23 +6,26 @@ import './card.scss';
 /**
  * Primary UI component for user interaction
  */
-export const Card = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+export const Card = ({ id, header,footer, body,link, ...props }) => {
   return (
       <div className="card-wrapper">
           <div className="card-cover">
-
+              <div className={`card-cover-content ${id === "pcm" ? 'one' : 'two'}`}/>
           </div>
           <div className="card-body-wrapper">
             <div className="card-body">
                 <div className="card-header">
-                    addEventListener
+                    {header}
                 </div>
                 <div className="card-content">
-y mamam
+                    {body}
                 </div>
                 <div className="card-button">
-            </div>
+                  <span className="c-highlight">
+                  <a className="card-button-text" href={link} target="_blank">{footer}</a>
+                  </span>
+                    
+                </div>
             </div>
           </div>
       </div>

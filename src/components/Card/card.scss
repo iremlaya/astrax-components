@@ -31,13 +31,11 @@
     flex-direction: column;
 }
 .card-cover {
-    border: 1px solid red;
     width: 100%;
     height: 100%;
 
 }
 .card-body-wrapper {
-    border: 1px solid red;
     width: 100%;
     height: 100%;
     justify-content: center;
@@ -46,7 +44,6 @@
     flex-direction: column;
 }
 .card-body {
-    border: 1px solid yellow;
     width: 80%;
     height: 80%;
     display: flex;
@@ -55,19 +52,42 @@
    
 }
 .card-header {
-    border: 1px solid black;
     width: 100%;
     height: 50%;
     @include card-text-header;
 }
 .card-content {
-    border: 1px solid red;
     width: 100%;
     height: 100%;
+    padding-bottom:20px;
+    overflow-y: auto;
     @include card-text;
 }
 .card-button {
-    border: 1px solid blue;
     width: 100%;
     height: 50%;
+    display: flex;
+    align-items: center;
+}
+.c-highlight{
+
+    background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #DBA5F5 50%); 
+}
+
+.card-button-text {
+    text-decoration: none;
+    @include card-text
+}
+.card-cover-content {
+   
+    background-size: cover;
+    width:100%;
+    height: 100%;
+    border-radius: 10px 10px 0px 0px;
+}
+.one {
+    background-image: url("../../assets/book1.jpg");
+}
+.two {
+    background-image: url("../../assets/book2.jpg");
 }

@@ -1,0 +1,41 @@
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'SF Pro Display', sans-serif;
+    
+    .about-h-wrapper{
+        width:550px;
+        height:150px;
+        margin-top:10vh;
+        .about-header {
+            font-size:48px;
+            font-weight: 600;
+            color:#1A051D;
+            background-image: linear-gradient(
+              transparent calc(65% - 5px),
+              darken(#DBA5F5, 15%) 5px,
+            );
+            background-size: 0;
+            background-repeat: no-repeat;
+            display: inline;
+            transition: 0.5s ease;
+          }
+          .about-content {
+              margin-top:5vh;
+              color:#3F3356;
+              font-family: "SF Pro Text";
+            font-size: 18px;
+            line-height: 28px;
+
+          }
+    }
+
+    
+      
+      &:hover {
+        .about-header {
+          background-size: 100%;
+        }
+      }
+}
